@@ -1,0 +1,13 @@
+.botoes{
+    all: unset;
+    display: flex;
+    background-color: #4D4D4D;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    justify-content: center;
+    margin: 2px 10px;
+    align-items: center;
+    cursor: pointer;
+    font-size: 32px;
+}
