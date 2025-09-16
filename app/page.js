@@ -7,11 +7,13 @@ export default function Home() {
 
     const [resultado, setResultado] = useState("");
 
-    function handleClick (exp){
-        if (exp === "C") {
-            setResultado("");
-        } else if (exp === "=") {
-            if (resultado.includes("%")){
+    function handleClick(exp) {
+        setResultado(resultado + exp);
+    }
+
+    function calculoOperacao(op) {
+        if (op === "=") {
+            if (resultado.includes("%")) {
                 const porcento = (parseFloat(resultado) / 100).toString();
                 setResultado(porcento);
             }
@@ -29,29 +31,47 @@ export default function Home() {
             } catch {
                 setResultado("Erro");
             }
-        }else if (exp === "+/-"){
-            if (resultado){
+        }
+    }
+
+    function positivoNegativo(op) {
+        if (op === "+/-") {
+            if (resultado) {
                 const invertido = (parseFloat(resultado) * -1).toString();
                 setResultado(invertido);
             }
-        }else if (exp === "%"){
-            if (resultado){
+        }
+    }
+
+    function porcentagem(op){
+        if (op === "%") {
+            if (resultado) {
                 setResultado(resultado + "%");
             }
-        }else if (exp === ","){
+        }
+    }
+
+    function virgula(op){
+         if (op === ",") {
             const partes = resultado.split(/[\+\-\X\÷\%]/);
             const ultimoNumero = partes[partes.length - 1];
 
             if (!ultimoNumero.includes(".")) {
                 setResultado(resultado + ".");
             }
-        }else if (exp === "←") {
-            setResultado(resultado.slice(0, -1));
-        }else {
-                setResultado(resultado + exp);
         }
     }
 
+    function clearAll (op){
+        if (op === "C") {
+            setResultado("");
+        }
+    }
+    function clear(op){
+         if (op === "←") {
+            setResultado(resultado.slice(0, -1));
+        }
+    }
 
   return (
       <>
@@ -66,9 +86,9 @@ export default function Home() {
                   </div>
                   <hr className={styles.hr} />
                   <div className={styles.teclas}>
-                      <Calculator valor={"←"} onClick={handleClick} />
-                      <Calculator valor={"C"} onClick={handleClick} />
-                      <Calculator valor={"%"} onClick={handleClick} />
+                      <Calculator valor={"←"} onClick={clear} />
+                      <Calculator valor={"C"} onClick={clearAll} />
+                      <Calculator valor={"%"} onClick={porcentagem} />
                       <Calculator valor={"÷"} onClick={handleClick} />
                       <Calculator valor={7} onClick={handleClick} />
                       <Calculator valor={8} onClick={handleClick} />
@@ -82,10 +102,10 @@ export default function Home() {
                       <Calculator valor={2} onClick={handleClick} />
                       <Calculator valor={3} onClick={handleClick} />
                       <Calculator valor={"+"} onClick={handleClick} />
-                      <Calculator valor={"+/-"} onClick={handleClick} />
+                      <Calculator valor={"+/-"} onClick={positivoNegativo} />
                       <Calculator valor={0} onClick={handleClick} />
-                      <Calculator valor={","} onClick={handleClick} />
-                      <Calculator valor={"="} onClick={handleClick} />
+                      <Calculator valor={","} onClick={virgula} />
+                      <Calculator valor={"="} onClick={calculoOperacao} />
                   </div>
               </div>
           </div>
