@@ -34,7 +34,7 @@
     font-size: 48px;
     background-color: #2D2D2D;
     width: 95%;
-    justify-content: end;
+    text-align: right;
 }
 
 .teclas{

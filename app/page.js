@@ -39,7 +39,10 @@ export default function Home() {
                 setResultado(resultado + "%");
             }
         }else if (exp === ","){
-            if (!resultado.includes(".")){
+            const partes = resultado.split(/[\+\-\X\÷\%]/);
+            const ultimoNumero = partes[partes.length - 1];
+
+            if (!ultimoNumero.includes(".")) {
                 setResultado(resultado + ".");
             }
         }else if (exp === "←") {
